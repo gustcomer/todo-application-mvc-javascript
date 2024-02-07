@@ -2,6 +2,10 @@ class Model {
   constructor() {
     this.todos = JSON.parse(localStorage.getItem('todos')) || []
   }
+
+  addTodo(todoText) {
+    this.todos.push(todoText)
+  }
 }
 
 class View {
@@ -24,16 +28,15 @@ class View {
     this.todoList.classList.add('todo-list')
 
     this.app.append(this.title, this.form, this.todoList)
-    this._initListeners()
   }
 
-  _initListeners(){
+  bindAddTodo(handler) {
     this.form.addEventListener('submit', event => {
       event.preventDefault()
 
-      const task_text = app.input.value
+      const todoText = app.view.input.value
 
-      this.model.todos.push(task_text)
+      handler(todoText)
 
       this.displayTodos()
     })
@@ -52,4 +55,19 @@ class View {
   }
 }
 
-const app = new View(new Model())
+class Controller {
+  constructor(model, view) {
+    this.model = model
+    this.view = view
+
+    this.view.bindAddTodo(this.handleAddTodo)
+  }
+
+
+  handleAddTodo = todoText => {
+    this.model.addTodo(todoText)
+  }
+}
+
+const model = new Model()
+const app = new Controller(model, new View(model))
