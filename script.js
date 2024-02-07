@@ -11,10 +11,12 @@ class View {
     this.submitButton = document.createElement('button')
     this.submitButton.textContent = 'Submit'
     this.form.append(this.input, this.submitButton)
-
     this.todos = JSON.parse(localStorage.getItem('todos')) || []
 
-    this.app.append(this.title, this.form)
+    this.todoList = document.createElement('ul')
+    this.todoList.classList.add('todo-list')
+
+    this.app.append(this.title, this.form, this.todoList)
     this._initListeners()
   }
 
@@ -31,8 +33,14 @@ class View {
   }
 
   displayTodos() {
+    while (this.todoList.firstChild) {
+      this.todoList.removeChild(this.todoList.firstChild)
+    }
+    
     this.todos.forEach(todo => {
-      console.log(todo);
+      const p = document.createElement('p')
+      p.textContent = todo
+      this.todoList.append(p)
     })
   }
 }
