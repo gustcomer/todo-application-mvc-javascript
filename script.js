@@ -1,5 +1,13 @@
-class View {
+class Model {
   constructor() {
+    this.todos = JSON.parse(localStorage.getItem('todos')) || []
+  }
+}
+
+class View {
+  constructor(model) {
+    this.model = model
+
     this.app = document.querySelector('#root')
     this.title = document.createElement('h1')
     this.title.textContent = 'Hello World'
@@ -11,7 +19,6 @@ class View {
     this.submitButton = document.createElement('button')
     this.submitButton.textContent = 'Submit'
     this.form.append(this.input, this.submitButton)
-    this.todos = JSON.parse(localStorage.getItem('todos')) || []
 
     this.todoList = document.createElement('ul')
     this.todoList.classList.add('todo-list')
@@ -26,7 +33,7 @@ class View {
 
       const task_text = app.input.value
 
-      this.todos.push(task_text)
+      this.model.todos.push(task_text)
 
       this.displayTodos()
     })
@@ -36,8 +43,8 @@ class View {
     while (this.todoList.firstChild) {
       this.todoList.removeChild(this.todoList.firstChild)
     }
-    
-    this.todos.forEach(todo => {
+
+    this.model.todos.forEach(todo => {
       const p = document.createElement('p')
       p.textContent = todo
       this.todoList.append(p)
@@ -45,4 +52,4 @@ class View {
   }
 }
 
-const app = new View()
+const app = new View(new Model())
