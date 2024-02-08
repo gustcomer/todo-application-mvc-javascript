@@ -63,7 +63,6 @@ class Controller {
     this.view.bindAddTodo(this.handleAddTodo)
   }
 
-
   handleAddTodo = todoText => {
     this.model.addTodo(todoText)
   }
