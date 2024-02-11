@@ -28,6 +28,7 @@ class View {
     this.todoList.classList.add('todo-list')
 
     this.app.append(this.title, this.form, this.todoList)
+    this.displayTodos()
   }
 
   bindAddTodo(handler) {
@@ -47,11 +48,18 @@ class View {
       this.todoList.removeChild(this.todoList.firstChild)
     }
 
-    this.model.todos.forEach(todo => {
+    if(this.model.todos.length == 0) {
       const p = document.createElement('p')
-      p.textContent = todo
+      p.textContent = "No tasks in your todo list."
       this.todoList.append(p)
-    })
+    }
+    else{
+      this.model.todos.forEach(todo => {
+        const p = document.createElement('p')
+        p.textContent = todo
+        this.todoList.append(p)
+      })
+    }
   }
 }
 
