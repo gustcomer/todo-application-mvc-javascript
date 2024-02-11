@@ -14,7 +14,7 @@ class View {
 
     this.app = document.querySelector('#root')
     this.title = document.createElement('h1')
-    this.title.textContent = 'Hello World'
+    this.title.textContent = 'Todo List'
     this.form = document.createElement('form')
     this.input = document.createElement('input')
     this.input.type = 'text'
