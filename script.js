@@ -55,9 +55,11 @@ class View {
     }
     else{
       this.model.todos.forEach(todo => {
-        const p = document.createElement('p')
-        p.textContent = todo
-        this.todoList.append(p)
+        const li = document.createElement('li')
+        const span = document.createElement('span')
+        span.textContent = todo
+        li.append(span)
+        this.todoList.append(li)
       })
     }
   }
